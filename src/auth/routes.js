@@ -21,7 +21,15 @@ authRouter.post('/signup', async (req, res, next) => {
   }
 });
 
-authRouter.post('/signin', basicAuth, (req, res, next) => {
+authRouter.post('/signin', basicAuth, (req, res) => {
+  const user = {
+    user: req.user,
+    token: req.user.token
+  };
+  res.status(200).json(user);
+});
+
+authRouter.post('/signin', bearerAuth, (req, res) => {
   const user = {
     user: req.user,
     token: req.user.token
